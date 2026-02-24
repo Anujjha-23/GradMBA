@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Programs 2026 | GradPath</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .filter-bar{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+    .filter-btn{padding:8px 16px;border-radius:20px;border:1px solid #dfe7f6;background:#fff;cursor:pointer;font-size:14px}
+    .filter-btn.active{background:#1E56A0;color:#fff;border-color:#1E56A0}
+    .program-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .college-card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.05);transition:0.3s}
+    .college-card:hover{transform:translateY(-5px)}
+    .fee{color:#1E56A0;font-weight:700;margin-top:8px}
+    .sort-select{padding:8px 12px;border-radius:8px;border:1px solid #dfe7f6}
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      <div class="logo-icon">G</div>Grad<span>Path</span>
+    </a>
+  </div>
+</nav>
+
+<section style="padding:60px 0;background:var(--off-white)">
+  <div class="container">
+    <h1 class="section-title">Explore Online Programs</h1>
+    <p class="section-sub">Filter, search and compare MBA, BBA, BCA & MCA programs.</p>
+
+    <input type="text" id="searchInput" placeholder="Search college..." 
+      style="width:100%;padding:14px;border-radius:10px;border:1px solid #dfe7f6;margin-top:20px;">
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="MBA">MBA</button>
+      <button class="filter-btn" data-filter="BBA">BBA</button>
+      <button class="filter-btn" data-filter="BCA">BCA</button>
+      <button class="filter-btn" data-filter="MCA">MCA</button>
+
+      <select id="sortFees" class="sort-select">
+        <option value="">Sort by Fees</option>
+        <option value="low">Low → High</option>
+        <option value="high">High → Low</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section class="container" style="padding:40px 0;">
+  <div class="program-grid" id="programGrid">
+
+    <div class="college-card searchable" data-name="Amity University Online" data-program="MBA" data-fee="199000">
+      <h3>Amity University Online</h3>
+      <p>MBA · Duration: 2 Years</p>
+      <div class="fee">₹1,99,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="NMIMS Global Access" data-program="MBA" data-fee="196000">
+      <h3>NMIMS Global Access</h3>
+      <p>MBA · Duration: 2 Years</p>
+      <div class="fee">₹1,96,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="Manipal University Online" data-program="MBA" data-fee="292000">
+      <h3>Manipal University Online</h3>
+      <p>MBA · Duration: 2 Years</p>
+      <div class="fee">₹2,92,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="LPU Online" data-program="BBA" data-fee="120000">
+      <h3>LPU Online</h3>
+      <p>BBA · Duration: 3 Years</p>
+      <div class="fee">₹1,20,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="Chandigarh University Online" data-program="BBA" data-fee="140000">
+      <h3>Chandigarh University Online</h3>
+      <p>BBA · Duration: 3 Years</p>
+      <div class="fee">₹1,40,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="Jain University Online" data-program="BCA" data-fee="150000">
+      <h3>Jain University Online</h3>
+      <p>BCA · Duration: 3 Years</p>
+      <div class="fee">₹1,50,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="Amrita Online" data-program="BCA" data-fee="120000">
+      <h3>Amrita Online</h3>
+      <p>BCA · Duration: 3 Years</p>
+      <div class="fee">₹1,20,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="Sikkim Manipal Online" data-program="MCA" data-fee="120000">
+      <h3>Sikkim Manipal Online</h3>
+      <p>MCA · Duration: 2 Years</p>
+      <div class="fee">₹1,20,000</div>
+    </div>
+
+    <div class="college-card searchable" data-name="IGNOU" data-program="MCA" data-fee="62000">
+      <h3>IGNOU</h3>
+      <p>MCA · Duration: 2 Years</p>
+      <div class="fee">₹62,000</div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const sortSelect = document.getElementById('sortFees');
+const grid = document.getElementById('programGrid');
+
+function filterCards() {
+  const searchValue = searchInput.value.toLowerCase();
+  const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+
+  document.querySelectorAll('.college-card').forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const program = card.dataset.program;
+
+    const matchesSearch = name.includes(searchValue);
+    const matchesFilter = activeFilter === 'all' || program === activeFilter;
+
+    card.style.display = (matchesSearch && matchesFilter) ? 'block' : 'none';
+  });
+}
+
+function sortCards(order) {
+  const cards = Array.from(document.querySelectorAll('.college-card'));
+  cards.sort((a,b) => {
+    const feeA = parseInt(a.dataset.fee);
+    const feeB = parseInt(b.dataset.fee);
+    return order === 'low' ? feeA - feeB : feeB - feeA;
+  });
+  cards.forEach(card => grid.appendChild(card));
+}
+
+searchInput.addEventListener('keyup', filterCards);
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterCards();
+  });
+});
+
+sortSelect.addEventListener('change', function(){
+  if(this.value) sortCards(this.value);
+});
+</script>
+
+</body>
+</html>

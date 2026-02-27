@@ -3,7 +3,7 @@
    ============================================= */
 
 // ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW (Step 3 in the Apps Script guide)
-const SHEET_URL = 'https://script.google.com/a/macros/collegedunia.com/s/AKfycbyXnEddl9ZQ-eu6HibMt-7jlMb5bI4o1kzNETmqYPZbB50WgUjbDikTaJoxWy5W7b9arg/exec';
+const SHEET_URL = https://script.google.com/a/macros/collegedunia.com/s/AKfycbytAC4G5BuqP88FDWz09Fo4sN9VMufLygCd9OT74RzH4U8uQPapKtWauFjcdv4B4CrdMw/exec;
 
 document.addEventListener('DOMContentLoaded', () => {
 
